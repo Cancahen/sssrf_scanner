@@ -73,7 +73,6 @@ class ResponseAnalyzer:
         self.base_times = [r.elapsed.total_seconds() for r in baseline_responses]
         self.base_internal_status = self._extract_internal_status(baseline_responses[0])
         self.avg_time = sum(self.base_times) / len(self.base_times)
-        # Dynamic threshold for time-based detection
         self.time_threshold = max(self.avg_time * 3.5, 4.0)
 
     def _extract_internal_status(self, response):
@@ -132,11 +131,9 @@ def generate_ip_bypasses(ip_str):
     try:
         ip_obj = ipaddress.IPv4Address(ip_str)
         packed = int(ip_obj)
-        # Decimal and Hex bypasses
         bypasses.extend([str(packed), hex(packed)])
         parts = ip_str.split('.')
         if len(parts) == 4:
-            # Octal bypass
             bypasses.append(".".join([format(int(x), '04o') for x in parts]))
     except: pass
     return list(set(bypasses))
@@ -345,27 +342,22 @@ def main():
             if isinstance(r, requests.Response):
                 res = analyzer.analyze(r)
                 
-                # Цветовая индикация для удобства:
-                # Зеленый для уязвимых, Желтый для подозрительных, Белый для обычных
-                color = "\033[0m" # Default
+                color = "\033[0m"
                 if res["vulnerable"]:
-                    color = "\033[92m" # Green
+                    color = "\033[92m"
                 elif res["score"] > 0:
-                    color = "\033[93m" # Yellow
+                    color = "\033[93m"
                 
                 reasons_str = " | ".join(res['reasons']) if res['reasons'] else "NORMAL"
                 out = f"{color}[{r.status_code}] Score: {res['score']:<3} | {p:<40} -> {reasons_str}\033[0m"
                 
-                # Выводим вообще все ответы
                 print(out)
                 
-                # В файл логов по-прежнему сохраняем только важное, чтобы не раздувать его
                 if res["score"] > 0:
                     with open("found.log", "a") as f:
                         f.write(f"[{r.status_code}] Score: {res['score']} | {p} -> {reasons_str}\n")
             
             elif isinstance(r, str):
-                # Если произошла ошибка (таймаут, отказ в соединении и т.д.)
                 print(f"\033[90m[ERROR]  {p:<40} -> {r}\033[0m")
 
 if __name__ == "__main__":
