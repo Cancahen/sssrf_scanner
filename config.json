@@ -1,15 +1,15 @@
 {
     "flags": {
-        "check_domains": true,
-        "check_ips": true,
-        "check_local": true,
-        "scan_ports": false,
+        "check_domains": false,
+        "check_ips": false,
+        "check_local": false,
+        "scan_ports": true,
         "scan_protos": false,
         "autostop": false,
         "bypass_ip": false,
         "threads": 5,
         "timeout": 1,
-        "custom_range": ""
+        "custom_range": "192.168.99.0/24"
     },
-    "redirect": ""
+    "redirect": "http://217.113.25.141:8008/redirect?next="
 }

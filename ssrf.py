@@ -8,7 +8,6 @@ import re
 import difflib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# Disable SSL warnings for testing environments
 requests.packages.urllib3.disable_warnings()
 
 CONFIG_FILE = "config.json"
@@ -34,8 +33,8 @@ SIGNATURES = {
     ]
 }
 
-COMMON_PORTS = [80, 81, 443, 3000, 3306, 5000, 5432, 6379, 8000, 8080, 8443, 9200, 27017]
-PROTOS = ["http", "https", "gopher", "dict", "file"]
+COMMON_PORTS = [80,23,443,21,22,25,3389,110,445,139,143,53,135,3306,8080]
+PROTOS = ["http", "https", "gopher", "ftp", "ssh", "ldap", "smb", "dict", "file"]
 
 flags = {
     "check_domains": True, "check_ips": True, "check_local": True,
@@ -342,13 +341,32 @@ def main():
         for task in as_completed(tasks):
             p = tasks[task]
             r = task.result()
+            
             if isinstance(r, requests.Response):
                 res = analyzer.analyze(r)
+                
+                # Цветовая индикация для удобства:
+                # Зеленый для уязвимых, Желтый для подозрительных, Белый для обычных
+                color = "\033[0m" # Default
+                if res["vulnerable"]:
+                    color = "\033[92m" # Green
+                elif res["score"] > 0:
+                    color = "\033[93m" # Yellow
+                
+                reasons_str = " | ".join(res['reasons']) if res['reasons'] else "NORMAL"
+                out = f"{color}[{r.status_code}] Score: {res['score']:<3} | {p:<40} -> {reasons_str}\033[0m"
+                
+                # Выводим вообще все ответы
+                print(out)
+                
+                # В файл логов по-прежнему сохраняем только важное, чтобы не раздувать его
                 if res["score"] > 0:
-                    out = f"[{r.status_code}] Score: {res['score']:<3} | {p:<40} -> {' | '.join(res['reasons'])}"
-                    print(out)
-                    if res["vulnerable"]:
-                        with open("found.log", "a") as f: f.write(out + "\n")
+                    with open("found.log", "a") as f:
+                        f.write(f"[{r.status_code}] Score: {res['score']} | {p} -> {reasons_str}\n")
+            
+            elif isinstance(r, str):
+                # Если произошла ошибка (таймаут, отказ в соединении и т.д.)
+                print(f"\033[90m[ERROR]  {p:<40} -> {r}\033[0m")
 
 if __name__ == "__main__":
     try: main()
