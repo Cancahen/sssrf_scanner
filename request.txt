@@ -1,0 +1,23 @@
+POST /stat/api/Postback/Test HTTP/2
+Host: finoffers.pampadu.ru
+Content-Length: 295
+Sec-Ch-Ua-Platform: "Linux"
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkYwQTMzMEE1NzJGM0U4QjVGMUVFRDc2NjQyODBBMjlERDhFOUZFRjEiLCJ0eXAiOiJKV1QiLCJ4NXQiOiI4S013cFhMejZMWHg3dGRtUW9DaW5kanBfdkUifQ.eyJuYmYiOjE3NzA0MTkwNjgsImV4cCI6MTc3MDc2NDY2OCwiaXNzIjoiaHR0cDovL2F1dGgtc2VydmljZS1zdmMuY29tbW9uIiwiYXVkIjpbImh0dHA6Ly9hdXRoLXNlcnZpY2Utc3ZjLmNvbW1vbi9yZXNvdXJjZXMiLCJhcGkiXSwiY2xpZW50X2lkIjoic3BhIiwic3ViIjoiYjU4NjVhOWItMzFkMy00NTRkLWJhZWMtZWZjZWI4YjVlMzhjIiwiYXV0aF90aW1lIjoxNzcwNDE5MDY3LCJpZHAiOiJsb2NhbCIsInVzZXJfaWQiOiIzMTY5NzEiLCJzY29wZSI6WyJhcGkiLCJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsicHdkIl19.NT4yVZ-1tipt2e5HFiRfOKrks32S0C2kRyOyLFpxz48RtXI0yDD-A5iuXs_tn2ekdjRC2fawePnx69Bo3pXE5ix3AHoTmkkp7IroWz0QBPSDQWshtyAlSeGhcHC0eYPDVz-HSq2SIGbyqgSrHTsnEKfcGncHbNmfzkT9qsSmuOeMvE3xHhLV9uqm2pI5MF8elx5ey1tHptEqe96FHzV94AUQ_mfgBdlxYlcOPgF8GboHY38aTPn4UZx4cNB76VumGog4RNzp9sU0rHgd4Q209Tog4by9_3INKeXjbECRxHO50s6QCeinIjzllOe09_YLwlnoRv_KnSxLuApK9REHHg
+Cache-Control: no-cache
+Accept-Language: en-US,en;q=0.9
+Sec-Ch-Ua: "Not(A:Brand";v="8", "Chromium";v="144"
+Sec-Ch-Ua-Mobile: ?0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: application/json, text/plain, */*
+Content-Type: Application/json
+Origin: https://agents.pampadu.ru
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://agents.pampadu.ru/
+Accept-Encoding: gzip, deflate, br
+Priority: u=1, i
+
+{"id":null,"method":"GET","url":"http://yandex.ru?offer_id={offer_id}&offer_name={offer_name}&click_id={click_id}&order_id={order_id}&status={status}&amount={amount}&cost={cost}&promo={promo}&goal={goal}&deposit={deposit}&sub1={sub1}","agentId":null,"name":"","offerId":null,"statusConfig":null}
+
+
